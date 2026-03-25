@@ -24,7 +24,9 @@
   "author": "Oswaldo CR",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "morgan": "^1.10.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
