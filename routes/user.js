@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const user = express.Router();
 const db = require('../config/database');
 
@@ -18,6 +19,25 @@ user.post("/", async (req, res, next) => {
     return res.status(500).json({code : 500, message : "Ocurrió un error"});
     }
 
+    return res.status(400).json({code : 400, message : "Campos incompletos"});
+});
+
+
+user.post("/login", async (req, res, next) => {
+    const {user_mail, user_password} = req.body;
+
+    if(user_mail && user_password){
+        let query = "SELECT * FROM user WHERE user_mail = ";
+        query += `'${user_mail}' AND user_password = '${user_password}'`;
+
+        const rows = await db.query(query);
+
+        if(rows.length == 1){
+            const token = jwt.sign({id : rows[0].user_id}, "debugkey");
+            return res.status(200).json({code : 200, message : "Usuario autenticado correctamente", token});
+        }
+        return res.status(401).json({code : 401, message : "Correo o contraseña incorrectos"});
+    }
     return res.status(400).json({code : 400, message : "Campos incompletos"});
 });
 
