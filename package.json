@@ -24,6 +24,7 @@
   "author": "Oswaldo CR",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
